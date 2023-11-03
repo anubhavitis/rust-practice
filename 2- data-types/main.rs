@@ -1,5 +1,9 @@
 // Testing some of the basic rust data types, annotations, conversions etc.
 
+// An attribute to hide warnings for unused code.
+#![allow(dead_code)]
+
+
 // function copied from chatgpt to print type of a variable
 fn type_of<T: std::fmt::Debug>(value: T) {
     println!("Type: {} Value: {:?}", std::any::type_name::<T>(), value);
@@ -61,5 +65,5 @@ fn main() {
     // default();
     // immutable_type_annotations();
     // mutable_variables();
-    type_inference_as_used();
+    // type_inference_as_used();
 }
