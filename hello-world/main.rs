@@ -1,5 +1,6 @@
 // This is the main function.
 fn main() {
+    // This is where thr program starts running
     // Statements here are executed when the compiled binary is called.
 
     // Notice here ! mark is used after println
