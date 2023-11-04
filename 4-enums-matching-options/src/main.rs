@@ -57,23 +57,25 @@ fn test_result() {
 
     for (a,b) in tests.iter() {
         let resp = divide(*a,*b);
-
+        print!("{} divided by {} is: ", a, b);
         match resp {
-            Err(err) => println!("Error occurred: {}", err),
-            Ok(val) => println!("Divide resp is {}", val),
+            Err(err) => println!("Error : {}", err),
+            Ok(val) => println!("{}", val),
         }
     }
 }
 
 
 fn divide(a:u32, b:u32) -> Result< u32, String> {
+    let resp:Result<u32, String> ;
     if b==0 {
-        Err("Denominator must be non-zero".to_string())
+       resp= Err("Denominator must be non-zero".to_string());
     }
     else if a<b {
-        Err ("Numerator is less than denominator".to_string())
+       resp= Err ("Numerator is less than denominator".to_string());
     }
     else {
-        Ok(a/b)
+       resp= Ok(a/b);
     }
+    resp
 }
