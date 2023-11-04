@@ -14,18 +14,66 @@ enum Day {
     Sunday
 }
 
-fn type_of_day(day:&Day) -> &str {
-    let resp:&str = match day {
-        Day::Monday | Day:: Tuesday => "Boring days",
-        Day::Wednesday | Day::Thrusday => "Exhaustive & waiting for weekend days",
-        Day::Friday => "Happy workday",
-        _ => "Sleeping weekend" // This is like default, we must always have a default for match
+fn type_of_day(day:&Day) -> Option<&str> {
+    //Option<T> stands for some value of type T, or None.
+    let resp:Option<&str> = match day {
+        Day::Monday | Day:: Tuesday => Some("Boring days"),
+        Day::Wednesday | Day::Thrusday => Some("Exhaustive & waiting for weekend days"),
+        Day::Friday => Some("Happy workday"),
+        _ => None // This is like default, we must always have a default for match.
     };
     resp
 }
 
-fn main() {
-    let today = Day::Wednesday; 
-    println!("It's {:?}, there it's: {:?}",today, type_of_day(&today))
+fn test_option() {
+    let today = Day::Sunday; 
+    
+    let day_type = type_of_day(&today);
+    match day_type {
+        Some(s) => println!("It's {:?}, there it's: {:?}",today, s),
+        None => println!("It's {:?}, there it's: {:?}",today, "Weekend. Go to sleep."),
+    }
 }
 
+
+fn main() {
+    // Uncomment the part of code that you want to test.
+    
+    // test_option();
+    test_result();
+}
+
+// #############################################################################
+// For simplicity, I have implemented the test code for Result<T,E> below main()
+
+// function copied from chatgpt to print type of a variable
+fn type_of<T: std::fmt::Debug>(value: T) {
+    println!("Type: {} Value: {:?}", std::any::type_name::<T>(), value);
+}
+
+fn test_result() {
+    // explicit annotation used here, since the default is i32
+    let tests:Vec<(u32,u32)> = vec![(4, 5), (7, 5), (10, 5)];
+
+    for (a,b) in tests.iter() {
+        let resp = divide(*a,*b);
+
+        match resp {
+            Err(err) => println!("Error occurred: {}", err),
+            Ok(val) => println!("Divide resp is {}", val),
+        }
+    }
+}
+
+
+fn divide(a:u32, b:u32) -> Result< u32, String> {
+    if b==0 {
+        Err("Denominator must be non-zero".to_string())
+    }
+    else if a<b {
+        Err ("Numerator is less than denominator".to_string())
+    }
+    else {
+        Ok(a/b)
+    }
+}
